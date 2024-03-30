@@ -18,8 +18,8 @@ public class Donut extends MenuItem
     public enum CakeDonutFlavor  { Mocha, Chai, Matcha }
     public enum DonutHoleFlavor  { Powdered, Blueberry, Lemon }
 
-    private DonutType donutType;
-    private Enum<?> donutFlavor; // Generic enum type for flavor
+    private final DonutType donutType;
+    private final Enum<?> donutFlavor; // Generic enum type for flavor
 
     // Constants for pricing
     private static final double YEAST_DONUT_PRICE = 1.79;

@@ -17,9 +17,9 @@ public class Sandwich extends MenuItem
     private enum BreadChoice { WHEAT, BAGEL, SOUR_DOUGH }
     private enum AddOns      { CHEESE, LETTUCE, TOMATOES, ONIONS }
 
-    private MeatChoice meatChoice;
-    private BreadChoice breadChoice;
-    private List<AddOns> addOnsList; // List of add-ons
+    private final MeatChoice meatChoice;
+    private final BreadChoice breadChoice;
+    private final List<AddOns> addOnsList; // List of add-ons
 
     // Constants for Sandwich (Meat) pricing
     private static final double CHICKEN_PRICE = 8.99;
@@ -37,9 +37,9 @@ public class Sandwich extends MenuItem
     /**
      * Constructs a Sandwich object with specified bread, protein, and add-ons.
      *
-     * @param breadType the type of bread for the sandwich
-     * @param proteinType the type of protein for the sandwich
-     * @param addOns list of add-ons for the sandwich
+     * @param breadChoice the type of bread for the sandwich
+     * @param meatChoice the type of protein for the sandwich
+     * @param addOnsList list of add-ons for the sandwich
      */
     public Sandwich(MeatChoice meatChoice, BreadChoice breadChoice, List<AddOns> addOnsList)
     {

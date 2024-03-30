@@ -18,8 +18,8 @@ public class Coffee extends MenuItem
     private static final double SIZE_INCREMENT_PRICE = 0.50;
     private static final double ADDON_PRICE = 0.30;
 
-    private CupSize cupSize;
-    private int addonCount; // Number of addons
+    private final CupSize cupSize;
+    private final int addonCount; // Number of addons
 
     //==================================================================================================================
 
