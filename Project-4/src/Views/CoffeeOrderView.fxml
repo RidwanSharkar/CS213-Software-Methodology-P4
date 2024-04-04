@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CoffeeController">
+   <children>
+      <AnchorPane layoutX="22.0" layoutY="23.0" prefHeight="357.0" prefWidth="553.0">
+         <children>
+            <Label text="Order Coffee">
+               <font>
+                  <Font name="Bauhaus 93" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="179.0" fitWidth="250.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/OrderCoffeeImage.PNG" />
+               </image></ImageView>
+            <CheckBox fx:id="frenchVanillaCheckBox" layoutX="283.0" layoutY="59.0" mnemonicParsing="false" onAction="#onCheckboxAction" text="French Vanilla" />
+            <CheckBox fx:id="mochaCheckBox" layoutX="283.0" layoutY="96.0" mnemonicParsing="false" onAction="#onCheckboxAction" text="Mocha" />
+            <CheckBox fx:id="caramelCheckBox" layoutX="283.0" layoutY="132.0" mnemonicParsing="false" onAction="#onCheckboxAction" text="Caramel" />
+            <CheckBox fx:id="irishCreamCheckBox" layoutX="424.0" layoutY="59.0" mnemonicParsing="false" onAction="#onCheckboxAction" text="Irish Cream" />
+            <CheckBox fx:id="sweetCreamCheckBox" layoutX="424.0" layoutY="95.0" mnemonicParsing="false" onAction="#onCheckboxAction" text="Sweet Cream" />
+            <ComboBox fx:id="cupSizeComboBox" layoutX="282.0" layoutY="201.0" prefHeight="25.0" prefWidth="92.0" promptText="Size" />
+            <Spinner fx:id="addonsSpinner" layoutX="426.0" layoutY="201.0" prefHeight="25.0" prefWidth="75.0" />
+            <TextField fx:id="subtotalTextField" layoutX="348.0" layoutY="317.0" prefHeight="25.0" prefWidth="87.0" text="Subtotal" />
+            <Button fx:id="addToOrderButton" layoutX="458.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#onAddToOrderClicked" text="Add to Order" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomePageController">
+    <children>
+        <AnchorPane layoutX="19.0" layoutY="23.0" prefHeight="365.0" prefWidth="567.0">
+            <children>
+                <Label text="RU Café">
+                    <font>
+                        <Font name="Bauhaus 93" size="30.0" />
+                    </font>
+                </Label>
+            <ButtonBar layoutY="46.0" />
+            <ButtonBar layoutX="188.0" layoutY="46.0" />
+            <ButtonBar layoutX="378.0" layoutY="45.0">
+               <buttons>
+                  <ImageView fx:id="sandwichOrderImageView" fitHeight="136.0" fitWidth="176.0" onMouseClicked="#onSandwichOrderClicked" pickOnBounds="true">
+                     <image>
+                        <Image url="@../Resources/SandwichImage.jpg" />
+                     </image>
+                  </ImageView>
+               </buttons>
+            </ButtonBar>
+            <ImageView fx:id="currentOrderImageView" fitHeight="143.0" fitWidth="176.0" layoutX="106.0" layoutY="205.0" onMouseClicked="#onCurrentOrderClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/CurrentOrderImage.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="orderHistoryImageView" fitHeight="143.0" fitWidth="176.0" layoutX="295.0" layoutY="206.0" onMouseClicked="#onOrderHistoryClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/AllOrdersImage.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="49.0" layoutY="182.0" text="Order Coffee" />
+            <Label layoutX="246.0" layoutY="182.0" text="Order Donuts" />
+            <Label layoutX="429.0" layoutY="182.0" text="Order Sandwich" />
+            <Label layoutX="162.0" layoutY="348.0" text="Current Order" />
+            <Label layoutX="315.0" layoutY="348.0" text="Order History" />
+            <ImageView fx:id="coffeeOrderImageView" fitHeight="135.0" fitWidth="169.0" layoutY="46.0" onMouseClicked="#onCoffeeOrderClicked" pickOnBounds="true">
+               <image>
+                  <Image url="@../Resources/CoffeeImage.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="donutOrderImageView" fitHeight="135.0" fitWidth="176.0" layoutX="194.0" layoutY="46.0" onMouseClicked="#onDonutOrderClicked" pickOnBounds="true">
+               <image>
+                  <Image url="@../Resources/DonutImage.jpg" />
+               </image>
+            </ImageView>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AllOrdersController">
+    <children>
+        <AnchorPane layoutX="22.0" layoutY="23.0" prefHeight="357.0" prefWidth="553.0">
+            <children>
+                <Label text="Order History">
+                    <font>
+                        <Font name="Bauhaus 93" size="30.0" />
+                    </font>
+                </Label>
+                <ListView layoutY="87.0" prefHeight="213.0" prefWidth="556.0" />
+                <Button layoutX="163.0" layoutY="317.0" mnemonicParsing="false" text="Cancel Order" />
+                <Button layoutX="278.0" layoutY="317.0" mnemonicParsing="false" text="Export Orders" />
+                <Label layoutX="278.0" layoutY="46.0" text="Total Amount:" />
+                <TextField layoutX="371.0" layoutY="42.0" prefHeight="25.0" prefWidth="86.0" text="\$2.29" />
+            <ComboBox layoutY="42.0" prefWidth="150.0" promptText="1" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
