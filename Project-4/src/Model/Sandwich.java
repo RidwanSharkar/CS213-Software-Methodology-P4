@@ -12,25 +12,38 @@ import java.util.List;
 
 public class Sandwich extends MenuItem
 {
+    public Sandwich(String meatChoice, String breadChoice, List<String> addOnsStrings)
+    {
+        this.meatChoice = meatChoice != null ? MeatChoice.valueOf(meatChoice.toUpperCase()) : null;
+        this.breadChoice = breadChoice != null ? BreadChoice.valueOf(breadChoice.toUpperCase()) : null;
+
+        this.addOnsList = new ArrayList<>();
+        if (addOnsStrings != null) {
+            for (String addOnString : addOnsStrings) {
+                this.addOnsList.add(AddOns.valueOf(addOnString.toUpperCase()));
+            }
+        }
+    }
+
     // Enumerations for Meat, Bread, and Addon choices
-    private enum MeatChoice  { CHICKEN, FISH, BEEF }
-    private enum BreadChoice { WHEAT, BAGEL, SOUR_DOUGH }
+    public enum MeatChoice  { CHICKEN, FISH, BEEF }
+    public enum BreadChoice { WHEAT, BAGEL, SOUR_DOUGH }
     private enum AddOns      { CHEESE, LETTUCE, TOMATOES, ONIONS }
 
-    private final MeatChoice meatChoice;
-    private final BreadChoice breadChoice;
-    private final List<AddOns> addOnsList; // List of add-ons
+    public final MeatChoice meatChoice;
+    public final BreadChoice breadChoice;
+    public final List<AddOns> addOnsList; // List of add-ons
 
     // Constants for Sandwich (Meat) pricing
-    private static final double CHICKEN_PRICE = 8.99;
-    private static final double FISH_PRICE = 9.99;
-    private static final double BEEF_PRICE = 10.99;
+    public static final double CHICKEN_PRICE = 8.99;
+    public static final double FISH_PRICE = 9.99;
+    public static final double BEEF_PRICE = 10.99;
 
     // Constants for Addon pricing
-    private static final double CHEESE_PRICE = 1.00;
-    private static final double LETTUCE_PRICE = 0.30;
-    private static final double TOMATOES_PRICE = 0.30;
-    private static final double ONIONS_PRICE = 0.30;
+    public static final double CHEESE_PRICE = 1.00;
+    public static final double LETTUCE_PRICE = 0.30;
+    public static final double TOMATOES_PRICE = 0.30;
+    public static final double ONIONS_PRICE = 0.30;
 
     //==================================================================================================================
 
@@ -59,6 +72,10 @@ public class Sandwich extends MenuItem
     public double price()
     {
         double totalPrice = 0.0;
+
+        if (meatChoice == null) {
+            return 0.00; // Default subtotal when no meat is selected
+        }
 
         // Calculate base price of meat choice
         switch (meatChoice)
@@ -102,7 +119,5 @@ public class Sandwich extends MenuItem
         }
         return totalPrice;
     }
-
-    //==================================================================================================================
 
 }

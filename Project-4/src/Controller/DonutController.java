@@ -4,9 +4,15 @@ import Model.Donut;
 import Model.Order;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.Arrays;
@@ -70,8 +76,9 @@ public class DonutController {
         }
     }
     @FXML
-    public void initialize() {
-
+    public void initialize()
+    {
+        subtotalTextField.setEditable(false);
         donutTypeComboBox.getItems().addAll("Yeast", "Cake", "Donut Hole");
         donutTypeComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             updateDonutImage(newValue);
@@ -110,9 +117,12 @@ public class DonutController {
 
     @FXML
     private void onAddButtonClicked() {
-        String selectedType = donutTypeComboBox.getValue().toUpperCase(); // Convert to uppercase
+        String selectedType = donutTypeComboBox.getValue().toUpperCase();
         String selectedFlavor = availableFlavorsListView.getSelectionModel().getSelectedItem();
-        if (selectedFlavor != null) {
+        if (selectedFlavor == null) {
+            return;
+        }
+        else {
             int quantity = quantitySpinner.getValue();
             String displayText = quantity + "x " + selectedFlavor;
             selectedFlavorsListView.getItems().add(displayText);
@@ -135,13 +145,11 @@ public class DonutController {
             String flavor = selected.substring(selected.indexOf(' ') + 1);
             String selectedType = donutTypeComboBox.getValue().toUpperCase(); // Convert to uppercase
 
-            // Remove the specified quantity of donuts from the order
 
             for (int i = 0; i < quantity; i++) {
                 currentOrder.removeItem(new Donut(selectedType, flavor));
             }
 
-            // If the flavor is no longer in the selected list, add it back to the available list
             boolean stillSelected = selectedFlavorsListView.getItems().stream()
                     .anyMatch(item -> item.contains(flavor));
             if (!stillSelected) {
@@ -151,36 +159,6 @@ public class DonutController {
             updateSubtotal();
         }
     }
-
-
-    /*
-    @FXML
-    private void onRemoveButtonClicked()
-    {
-        String selected = selectedFlavorsListView.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            selectedFlavorsListView.getItems().remove(selected);
-            String flavor = selected.substring(selected.indexOf(' ') + 1);
-            String selectedType = donutTypeComboBox.getValue().toUpperCase(); // Convert to uppercase
-
-            // Remove the specified quantity of donuts from the order
-            int quantityToRemove = Integer.parseInt(selected.substring(0, selected.indexOf('x')).trim());
-            for (int i = 0; i < quantityToRemove; i++) {
-                currentOrder.removeItem(new Donut(selectedType, flavor));
-            }
-
-            // If the flavor is no longer in the selected list, add it back to the available list
-            boolean stillSelected = selectedFlavorsListView.getItems().stream()
-                    .noneMatch(item -> item.endsWith(flavor));
-            if (!stillSelected) {
-                availableFlavorsListView.getItems().add(flavor);
-            }
-
-            updateSubtotal(); // Update subtotal after removing items
-        }
-    }
-
-     */
 
     private void updateOrder()
     {
@@ -202,5 +180,26 @@ public class DonutController {
     private void updateSubtotal() {
         double subtotal = currentOrder.calculateTotal();
         subtotalTextField.setText(String.format("$%.2f", subtotal));
+    }
+
+    /*==BACK=BUTTON===============================================================================================*/
+
+    @FXML
+    private ImageView backImageView;
+
+    @FXML
+    private void onBackImageViewClicked() {
+        loadView("/Views/HomePageView.fxml");
+    }
+
+    private void loadView(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Object root = loader.load();
+            Stage stage = (Stage) backImageView.getScene().getWindow();
+            stage.setScene(new Scene((Parent) root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();}
     }
 }

@@ -11,16 +11,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CoffeeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CoffeeController">
    <children>
-      <AnchorPane layoutX="22.0" layoutY="23.0" prefHeight="357.0" prefWidth="553.0">
+      <AnchorPane layoutX="22.0" layoutY="23.0" prefHeight="357.0" prefWidth="553.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Label text="Order Coffee">
                <font>
                   <Font name="Bauhaus 93" size="30.0" />
                </font>
             </Label>
-            <ImageView fitHeight="179.0" fitWidth="250.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="179.0" fitWidth="250.0" layoutY="47.0" pickOnBounds="true">
                <image>
                   <Image url="@../Resources/OrderCoffeeImage.PNG" />
                </image></ImageView>
@@ -30,9 +30,14 @@
             <CheckBox fx:id="irishCreamCheckBox" layoutX="424.0" layoutY="59.0" mnemonicParsing="false" onAction="#onCheckboxAction" text="Irish Cream" />
             <CheckBox fx:id="sweetCreamCheckBox" layoutX="424.0" layoutY="95.0" mnemonicParsing="false" onAction="#onCheckboxAction" text="Sweet Cream" />
             <ComboBox fx:id="cupSizeComboBox" layoutX="282.0" layoutY="201.0" prefHeight="25.0" prefWidth="92.0" promptText="Size" />
-            <Spinner fx:id="addonsSpinner" layoutX="426.0" layoutY="201.0" prefHeight="25.0" prefWidth="75.0" />
-            <TextField fx:id="subtotalTextField" layoutX="348.0" layoutY="317.0" prefHeight="25.0" prefWidth="87.0" text="Subtotal" />
+            <Spinner fx:id="addonsSpinner" layoutX="426.0" layoutY="201.0" onMouseClicked="#onAddonsSpinnerClicked" prefHeight="25.0" prefWidth="75.0" />
+            <TextField fx:id="subtotalTextField" layoutX="348.0" layoutY="317.0" prefHeight="25.0" prefWidth="87.0" text="\$0.00" />
             <Button fx:id="addToOrderButton" layoutX="458.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#onAddToOrderClicked" text="Add to Order" />
+            <ImageView fx:id="backImageView" fitHeight="84.0" fitWidth="150.0" layoutX="-25.0" layoutY="275.0" onMouseClicked="#onBackImageViewClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Resources/BackButtonImage.gif" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

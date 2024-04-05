@@ -2,14 +2,19 @@ package Controller;
 import Model.Coffee;
 import Model.Order;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class CoffeeController
 {
     @FXML
     private ComboBox<String> cupSizeComboBox;
-    @FXML
-    private Spinner<Integer> addonsSpinner;
     @FXML
     private TextField subtotalTextField;
     @FXML
@@ -31,8 +36,16 @@ public class CoffeeController
     }
 
     @FXML
+    private Spinner<Integer> addonsSpinner;
+    @FXML
+    private void onAddonsSpinnerClicked() {
+        updateSubtotal();
+    }
+
+    @FXML
     public void initialize()
     {
+        subtotalTextField.setEditable(false);
         cupSizeComboBox.getItems().addAll("SHORT", "TALL", "GRANDE", "VENTI");
         cupSizeComboBox.getSelectionModel().selectFirst(); // Select "SHORT" by default
 
@@ -41,15 +54,16 @@ public class CoffeeController
         cupSizeComboBox.valueProperty().addListener((obs, oldVal, newVal) -> updateSubtotal());
         addonsSpinner.valueProperty().addListener((obs, oldVal, newVal) -> updateSubtotal());
 
-        updateSubtotal(); // Update the subtotal on initialization
+        updateSubtotal();
     }
 
     @FXML
-    private void onAddToOrderClicked() {
-        // Construct a Coffee object and add it to the current order
+    private void onAddToOrderClicked()
+    {
+        int addonsCount = addonsSpinner.getValue();
         Coffee coffee = new Coffee(cupSizeComboBox.getValue(), countSelectedAddons());
         currentOrder.addItem(coffee);
-        updateSubtotal(); // Update the subtotal
+        updateSubtotal();
     }
 
     private int countSelectedAddons()
@@ -63,21 +77,44 @@ public class CoffeeController
         return count;
     }
 
-    private void updateSubtotal()
-    {
+    private void updateSubtotal() {
         String selectedSize = cupSizeComboBox.getValue();
         int addonsCount = countSelectedAddons();
-
-        // Use the Coffee class to calculate price
         double sizePriceIncrease = Coffee.calculateSizePriceIncrease(selectedSize);
-        double subtotal = Coffee.getBasePrice() + sizePriceIncrease + addonsCount * Coffee.ADDON_PRICE;
+        double oneCoffeeSubtotal = Coffee.getBasePrice() + sizePriceIncrease + addonsCount * Coffee.ADDON_PRICE;
+        int quantity = addonsSpinner.getValue();
+        double totalSubtotal = oneCoffeeSubtotal * quantity;
 
-        subtotalTextField.setText(String.format("$%.2f", subtotal));
+        subtotalTextField.setText(String.format("$%.2f", totalSubtotal));
     }
 
     @FXML
     private void onCheckboxAction()
     {
         updateSubtotal(); // Update the subtotal when any checkbox is toggled
+    }
+
+
+
+
+    /*==BACK=BUTTON===============================================================================================*/
+
+    @FXML
+    private ImageView backImageView;
+
+    @FXML
+    private void onBackImageViewClicked() {
+        loadView("/Views/HomePageView.fxml");
+    }
+
+    private void loadView(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Object root = loader.load();
+            Stage stage = (Stage) backImageView.getScene().getWindow();
+            stage.setScene(new Scene((Parent) root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();}
     }
 }
