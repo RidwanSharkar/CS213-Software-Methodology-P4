@@ -29,6 +29,11 @@ public class Coffee extends MenuItem {
         this.addonCount = addonCount;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Coffee: Size - %s, Add-ons - %d", this.cupSize.name(), this.addonCount);
+    }
+
     public static double getBasePrice() {
         return BASE_PRICE;
     }
@@ -43,6 +48,8 @@ public class Coffee extends MenuItem {
         price += this.addonCount * ADDON_PRICE;
         return price;
     }
+
+
 
     // Static method to get the price increase for the size
     public static double calculateSizePriceIncrease(String size)

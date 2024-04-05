@@ -1,6 +1,7 @@
 package Model;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Sandwich class to extend MenuItem abstract class
@@ -25,10 +26,17 @@ public class Sandwich extends MenuItem
         }
     }
 
+    @Override
+    public String toString() {
+        // Assuming addOnsList is a list of enums or strings
+        return String.format("Sandwich: Meat - %s, Bread - %s, Add-ons - %s",
+                this.meatChoice.name(), this.breadChoice.name(), this.addOnsList.stream().map(Object::toString).collect(Collectors.joining(", ")));
+    }
+
     // Enumerations for Meat, Bread, and Addon choices
     public enum MeatChoice  { CHICKEN, FISH, BEEF }
     public enum BreadChoice { WHEAT, BAGEL, SOUR_DOUGH }
-    private enum AddOns      { CHEESE, LETTUCE, TOMATOES, ONIONS }
+    enum AddOns      { CHEESE, LETTUCE, TOMATOES, ONIONS }
 
     public final MeatChoice meatChoice;
     public final BreadChoice breadChoice;

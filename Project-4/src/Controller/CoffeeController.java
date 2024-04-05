@@ -1,6 +1,7 @@
 package Controller;
 import Model.Coffee;
 import Model.Order;
+import Model.Sandwich;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,18 +31,26 @@ public class CoffeeController
 
     private Order currentOrder;
 
-    public CoffeeController()
-    {
-        currentOrder = new Order();
+    /**
+     * Initializes a new coffee order
+     */
+    public CoffeeController() {
+        this.currentOrder = Order.getInstance();
     }
 
     @FXML
     private Spinner<Integer> addonsSpinner;
+
+    /**
+     * Updates subtotal when an add on is selected on the GUI
+     */
     @FXML
     private void onAddonsSpinnerClicked() {
         updateSubtotal();
     }
-
+    /**
+     * Initializes the coffee page in the GUI when selected from the home page
+     */
     @FXML
     public void initialize()
     {
@@ -57,15 +66,11 @@ public class CoffeeController
         updateSubtotal();
     }
 
-    @FXML
-    private void onAddToOrderClicked()
-    {
-        int addonsCount = addonsSpinner.getValue();
-        Coffee coffee = new Coffee(cupSizeComboBox.getValue(), countSelectedAddons());
-        currentOrder.addItem(coffee);
-        updateSubtotal();
-    }
 
+    /**
+     * Counts the number of add ons that are selected on the GUI
+     * @return the number of add ons selected
+     */
     private int countSelectedAddons()
     {
         int count = 0;
@@ -76,7 +81,9 @@ public class CoffeeController
         if (caramelCheckBox.isSelected()) count++;
         return count;
     }
-
+    /**
+     * Uses logic to update the subtotal of the current coffee order
+     */
     private void updateSubtotal() {
         String selectedSize = cupSizeComboBox.getValue();
         int addonsCount = countSelectedAddons();
@@ -87,7 +94,9 @@ public class CoffeeController
 
         subtotalTextField.setText(String.format("$%.2f", totalSubtotal));
     }
-
+    /**
+     * Updates the subtotal when any checkbox is toggled in the GUI
+     */
     @FXML
     private void onCheckboxAction()
     {
@@ -101,12 +110,17 @@ public class CoffeeController
 
     @FXML
     private ImageView backImageView;
-
+    /**
+     * Loads the previous page when the back button is selected in the GUI
+     */
     @FXML
     private void onBackImageViewClicked() {
         loadView("/Views/HomePageView.fxml");
     }
 
+    /**
+     * Logic for loading the back page in the GUI
+     */
     private void loadView(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
@@ -117,4 +131,32 @@ public class CoffeeController
         } catch (IOException e) {
             e.printStackTrace();}
     }
+
+    /*==AddToOrder=BUTTON===============================================================================================*/
+
+    @FXML
+    private Button addToOrderButton;
+
+    public void setOrder() {
+        this.currentOrder = Order.getInstance();
+    }
+
+    private CurrentOrderController currentOrderController;
+
+    public void setCurrentOrderController(CurrentOrderController controller) {
+        this.currentOrderController = controller;
+    }
+    /**
+     * Adds the current coffee to the order when the add button is selected on th GUI
+     */
+    @FXML
+    private void onAddToOrderButtonClicked() {
+        setOrder();
+        updateSubtotal();
+        int addonsCount = addonsSpinner.getValue();
+        Coffee coffee = new Coffee(cupSizeComboBox.getValue(), countSelectedAddons());
+        currentOrder.addItem(coffee);
+        updateSubtotal();
+    }
+
 }

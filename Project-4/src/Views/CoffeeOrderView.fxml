@@ -32,7 +32,7 @@
             <ComboBox fx:id="cupSizeComboBox" layoutX="282.0" layoutY="201.0" prefHeight="25.0" prefWidth="92.0" promptText="Size" />
             <Spinner fx:id="addonsSpinner" layoutX="426.0" layoutY="201.0" onMouseClicked="#onAddonsSpinnerClicked" prefHeight="25.0" prefWidth="75.0" />
             <TextField fx:id="subtotalTextField" layoutX="348.0" layoutY="317.0" prefHeight="25.0" prefWidth="87.0" text="\$0.00" />
-            <Button fx:id="addToOrderButton" layoutX="458.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#onAddToOrderClicked" text="Add to Order" />
+            <Button fx:id="addToOrderButton" layoutX="458.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#onAddToOrderButtonClicked" text="Add to Order" />
             <ImageView fx:id="backImageView" fitHeight="84.0" fitWidth="150.0" layoutX="-25.0" layoutY="275.0" onMouseClicked="#onBackImageViewClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Resources/BackButtonImage.gif" />

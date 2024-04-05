@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import Controller.CurrentOrderController;
 
 public class SandwichController
 {
@@ -46,11 +47,6 @@ public class SandwichController
     private ToggleGroup breadToggleGroup;
     private Order currentOrder;
 
-    private Button addToOrderButton;
-
-    public SandwichController() {
-        currentOrder = new Order(); // Initialize a new order
-    }
 
     @FXML
     public void initialize()
@@ -155,4 +151,37 @@ public class SandwichController
         } catch (IOException e) {
             e.printStackTrace();}
     }
+
+
+    /*==AddToOrder=BUTTON===============================================================================================*/
+
+    public SandwichController() {
+        this.currentOrder = Order.getInstance();
+    }
+
+    @FXML
+    private Button addToOrderButton;
+
+    public void setOrder() {
+        this.currentOrder = Order.getInstance();
+    }
+
+    private CurrentOrderController currentOrderController;
+
+    public void setCurrentOrderController(CurrentOrderController controller) {
+        this.currentOrderController = controller;
+    }
+
+    @FXML
+    private void onAddToOrderButtonClicked() {
+        setOrder();
+        updateSubtotal();
+        Sandwich newSandwich = createTempSandwich();
+        currentOrder.addItem(newSandwich);
+        updateSubtotal();
+    }
+
+
+
+
 }

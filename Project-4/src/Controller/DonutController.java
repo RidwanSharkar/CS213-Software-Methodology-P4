@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Donut;
 import Model.Order;
+import Model.Sandwich;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,10 +44,12 @@ public class DonutController {
     private Map<String, Image> donutImages;
 
     public DonutController() {
-        currentOrder = new Order();
+        currentOrder = Order.getInstance();
         donutImages = new HashMap<>(); // Initialize the HashMap here
         loadDonutImages();
     }
+
+
 
     private void updateDonutImage(String donutType) {
         Image image = donutImages.get(donutType.toUpperCase());
@@ -159,7 +162,9 @@ public class DonutController {
             updateSubtotal();
         }
     }
-
+    /**
+     * Uses logic to update the subtotal of the current coffee order
+     */
     private void updateOrder()
     {
         currentOrder.getItems().clear();
@@ -176,7 +181,9 @@ public class DonutController {
         updateSubtotal();
     }
 
-
+    /**
+     * Updates the subtotal when any checkbox is toggled in the GUI
+     */
     private void updateSubtotal() {
         double subtotal = currentOrder.calculateTotal();
         subtotalTextField.setText(String.format("$%.2f", subtotal));
@@ -186,12 +193,16 @@ public class DonutController {
 
     @FXML
     private ImageView backImageView;
-
+    /**
+     * Loads the previous page when the back button is selected in the GUI
+     */
     @FXML
     private void onBackImageViewClicked() {
         loadView("/Views/HomePageView.fxml");
     }
-
+    /**
+     * Logic for loading the back page in the GUI
+     */
     private void loadView(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
@@ -202,4 +213,47 @@ public class DonutController {
         } catch (IOException e) {
             e.printStackTrace();}
     }
+
+    /*==AddToOrder=BUTTON===============================================================================================*/
+
+    @FXML
+    private Button addToOrderButton;
+
+    public void setOrder() {
+        this.currentOrder = Order.getInstance();
+    }
+
+    private CurrentOrderController currentOrderController;
+
+    public void setCurrentOrderController(CurrentOrderController controller) {
+        this.currentOrderController = controller;
+    }
+
+
+    @FXML
+    private void onAddToOrderButtonClicked() {
+        // Iterate over the selected flavors and add the corresponding donuts to the order
+        for (String selectedItem : selectedFlavorsListView.getItems()) {
+            String[] parts = selectedItem.split("x ");
+            int quantity = Integer.parseInt(parts[0].trim());
+            String flavor = parts[1];
+            String donutType = donutTypeComboBox.getValue();
+
+            for (int i = 0; i < quantity; i++) {
+                Donut donut = new Donut(donutType, flavor);
+                currentOrder.addItem(donut);
+            }
+        }
+
+        // Optionally, update the CurrentOrderController if necessary.
+        if (currentOrderController != null) {
+            currentOrderController.updateOrder();
+        }
+
+        // Update subtotal or any other UI elements as required.
+        updateSubtotal();
+    }
+
+
+
 }

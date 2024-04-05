@@ -1,4 +1,5 @@
 package Model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,30 +13,37 @@ import java.util.List;
  * @author Ridwan Sharkar
  */
 
-public class Order
-{
+public class Order {
     private static int nextOrderNumber = 1; // Static counter to generate unique order numbers
 
     private final int orderNumber;
     private List<MenuItem> items;
 
-    /**
-     * Constructs a new Order with a unique order number and an empty list of items.
-     */
-    public Order()
-    {
+    // Singleton instance of the order
+    private static Order instance;
+
+    // Private constructor to prevent instantiation from outside
+    private Order() {
         this.orderNumber = nextOrderNumber++;
         this.items = new ArrayList<>();
+    }
+
+    // Method to get the singleton instance of Order
+    public static Order getInstance() {
+        if (instance == null) {
+            instance = new Order();
+        }
+        return instance;
     }
 
     //==================================================================================================================
 
     /**
      * Adds a menu item to the order.
+     *
      * @param item The menu item to be added.
      */
-    public void addItem(MenuItem item)
-    {
+    public void addItem(MenuItem item) {
         items.add(item);
     }
 
@@ -43,10 +51,10 @@ public class Order
 
     /**
      * Removes a menu item from the order.
+     *
      * @param item The menu item to be removed.
      */
-    public void removeItem(MenuItem item)
-    {
+    public void removeItem(MenuItem item) {
         items.remove(item);
     }
 
@@ -54,13 +62,12 @@ public class Order
 
     /**
      * Calculates the total price of all items in the order.
+     *
      * @return Total price of the order.
      */
-    public double calculateTotal()
-    {
+    public double calculateTotal() {
         double total = 0.0;
-        for (MenuItem item : items)
-        {
+        for (MenuItem item : items) {
             total += item.price();
         }
         return total;
@@ -70,10 +77,10 @@ public class Order
 
     /**
      * Gets the order number.
+     *
      * @return The order number.
      */
-    public int getOrderNumber()
-    {
+    public int getOrderNumber() {
         return orderNumber;
     }
 
@@ -81,13 +88,18 @@ public class Order
 
     /**
      * Gets the list of items in the order.
+     *
      * @return The list of menu items.
      */
-    public List<MenuItem> getItems()
-    {
+    public List<MenuItem> getItems() {
         return new ArrayList<>(items); // Return a copy to preserve encapsulation
     }
 
     //==================================================================================================================
+
+    // Method to reset the order (for example, when starting a new order)
+    public void resetOrder() {
+        instance = new Order();
+    }
 
 }
